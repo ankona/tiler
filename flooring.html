@@ -9,6 +9,7 @@
                 var rh = parseInt(document.getElementById('roomHeight').value);
                 var tw = parseInt(document.getElementById('tileWidth').value);
                 var th = parseInt(document.getElementById('tileHeight').value);
+                var isOffset = document.getElementById("offsetOn").checked;
 
                 c.width = rw;
                 c.height = rh;
@@ -17,7 +18,7 @@
                 var w = 8;
                 var h = 48;
 
-                var tiles = generateTiles(tw, th, rw, rh);
+                var tiles = generateTiles(tw, th, rw, rh, isOffset);
                 renderTiles(ctx, tiles);
             }
         </script>
@@ -34,6 +35,12 @@
             <input id="tileWidth" type="number" value="8"/><br/>
             <label for="tileHeight">Tile Height (inches)</label>
             <input id="tileHeight" type="number" value="47"/><br/>
+            <h2>Design</h2>
+            <!-- <label for="enableOffset">Enable Offset</label> -->
+            <label for="offsetOn">Offset Tile</label>
+            <input type="radio" id="offsetOn" name="enableOffset" value="on" checked="checked"/>
+            <label for="offsetOff">No Offset</label>
+            <input type="radio" id="offsetOff" name="enableOffset" value="off"/><br/>
 
             <button type="button" onclick="generate()">Generate Layout</button>
         </form>        
