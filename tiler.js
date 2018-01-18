@@ -22,7 +22,7 @@ function generateStarts(maxOverlap, tileWidth, floorWidth) {
     var startPositions = [0];
 
     // Generate start positions until you reach the width of the room
-    for(i=w; i<floorWidth; i+=tileWidth) {
+    for(i=tileWidth; i<floorWidth; i+=tileWidth) {
         var lastStart = startPositions[startPositions.length-1];
         var ns = getNextStart(maxOverlap, lastStart);
         while (ns == lastStart) {
@@ -42,7 +42,9 @@ function generateTiles(w, h, fw, fh) {
             var color = getFillColor();
             var tile = {x1: i*w, 
                         y1: startPositions[i] + j,
-                        c: color};
+                        c: color,
+                        w: w,
+                        h: h};
             tiles.push(tile);
         }
     }
@@ -52,21 +54,21 @@ function generateTiles(w, h, fw, fh) {
 function renderTiles(ctx, tiles) {
     for(var i=0; i<tiles.length; i++) {
         ctx.fillStyle = tiles[i].c;
-        ctx.fillRect(tiles[i].x1, tiles[i].y1, w, h);
+        ctx.fillRect(tiles[i].x1, tiles[i].y1, tiles[i].w, tiles[i].h);
 
         ctx.lineWidth="1";
         ctx.strokeStyle=getColors()[2];
-        ctx.rect(tiles[i].x1, tiles[i].y1, w, h);
+        ctx.rect(tiles[i].x1, tiles[i].y1, tiles[i].w, tiles[i].h);
         ctx.stroke();
     }
 }
 
-var c = document.getElementById('myCanvas');
-var ctx = c.getContext('2d');
-var w = 8;
-var h = 48;
-var cw = c.width;
-var ch = c.height;
+// var c = document.getElementById('myCanvas');
+// var ctx = c.getContext('2d');
+// var w = 8;
+// var h = 48;
+// var cw = c.width;
+// var ch = c.height;
 
-var tiles = generateTiles(w, h, cw, ch);
-renderTiles(ctx, tiles);
+// var tiles = generateTiles(w, h, cw, ch);
+// renderTiles(ctx, tiles);
