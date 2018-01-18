@@ -25,16 +25,21 @@ function generateStarts(maxOverlap, tileWidth, floorWidth) {
     for(i=tileWidth; i<floorWidth; i+=tileWidth) {
         var lastStart = startPositions[startPositions.length-1];
         var ns = getNextStart(maxOverlap, lastStart);
-        while (ns == lastStart) {
-            ns = getNextStart(maxOverlap, lastStart);
+        if (maxOverlap > 0) {
+            while (ns == lastStart) {
+                ns = getNextStart(maxOverlap, lastStart);
+            }
         }
         startPositions.push(ns);
     }
     return startPositions;
 }    
 
-function generateTiles(w, h, fw, fh) {
+function generateTiles(w, h, fw, fh, offset) {
     var maxOverlap = h / 3.0;
+    if (!offset) {
+        maxOverlap = 0;
+    }
     var startPositions = generateStarts(maxOverlap, w, fw);
     var tiles = []
     for(i=0; i<startPositions.length; i++) {
