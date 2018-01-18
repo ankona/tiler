@@ -1,11 +1,44 @@
 <html>
     <head>
         <title>Floor Tile Random Layout Generator</title>
+        <script src="tiler.js"></script>
+        <script lang="javascript">
+            function generate() {
+                var c = document.getElementById('roomCanvas');
+                var rw = parseInt(document.getElementById('roomWidth').value);
+                var rh = parseInt(document.getElementById('roomHeight').value);
+                var tw = parseInt(document.getElementById('tileWidth').value);
+                var th = parseInt(document.getElementById('tileHeight').value);
+
+                c.width = rw;
+                c.height = rh;
+
+                var ctx = c.getContext('2d');
+                var w = 8;
+                var h = 48;
+
+                var tiles = generateTiles(tw, th, rw, rh);
+                renderTiles(ctx, tiles);
+            }
+        </script>
     </head>
-    <body>        
-        <canvas id='myCanvas' width="168" height="336">
+    <body>    
+        <form id="criteriaForm">
+            <h2>Room Size</h2>
+            <label for="roomWidth">Room Width (inches)</label>
+            <input id="roomWidth" type="number" value="168"/><br/>
+            <label for="roomHeight">Room Height (inches)</label>
+            <input id="roomHeight" type="number" value="336"/><br/>
+            <h2>Tile Size</h2>
+            <label for="tileWidth">Tile Width (inches)</label>
+            <input id="tileWidth" type="number" value="8"/><br/>
+            <label for="tileHeight">Tile Height (inches)</label>
+            <input id="tileHeight" type="number" value="47"/><br/>
+
+            <button type="button" onclick="generate()">Generate Layout</button>
+        </form>        
+        <canvas id='roomCanvas' width="168" height="336">
 
         </canvas>
     </body>
 </html>
-<script src="tiler.js"></script>
